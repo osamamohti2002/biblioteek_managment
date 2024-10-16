@@ -87,12 +87,7 @@
             <!-- form start -->
             <form method="POST" enctype="multipart/form-data"  > 
               <div class="card-body"> 
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
-                <input type="text" class="form-control">
-                <small id='totalrente' class="form-text text-muted"></small>
+
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
@@ -111,19 +106,11 @@
           <div class="row justify-content-center mb-3">
             <div class="col-4 ">
               <ul class="nav">
-            
+                {% for cat in categorys|slice:'4' %}
                 <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">تاريخ</a>
+                  <a id="" class="nav-link bg-primary" href="#">{{cat.name}}</a>
                 </li>
-                <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">فن</a>
-                </li>
-                <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">ثقافة</a>
-                </li>
-                <li class="nav-item ">
-                  <a id="" class="nav-link bg-primary" href="#">رومانسية</a>
-                </li>
+                {% endfor %}
               </ul>
             </div>
           </div>
@@ -148,8 +135,13 @@
                 <!-- Button trigger modal -->
                   </div>
                 </div>
-
+                {% if book.image %}
                 <div style="background: url({{book.image.url}}); background-size: cover;" class="widget-user-header bg-info">
+                {% else %}
+                <div class="widget-user-header bg-info">
+                {% endif %}
+                
+
                   <h3 class="widget-user-username">{{book.title}}</h3>
                   <h5 class="widget-user-desc">{{book.author}}</h5>
                 </div>
@@ -170,8 +162,13 @@
                         <!-- /.col -->
                     <div class="col-sm-4 border-right">
                       <div class="description-block">
+                        {% if book.price %}
                         <h5 class="description-header"> ${{book.price}}</h5>
                         <span class="description-text">السعر</span>
+                        {% elif book.rental_price %}
+                        <h5 class="description-header"> ${{book.rental_price}}</h5>
+                        <span class="description-text"> في اليوم</span>
+                        {% endif %}
                       </div>
                       <!-- /.description-block -->
                     </div>
