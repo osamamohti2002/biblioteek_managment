@@ -1,15 +1,26 @@
 from django.shortcuts import render
 from .models import  * 
-from .forms import BookForm
+from .forms import BookForm, CategoryForm
 
 # Create your views here
 
 def index(request):
+    if request.method == 'POST':
+        add_book = BookForm(request.POST, request.FILES)
+        if add_book.is_valid():
+            add_book.save()
+        aad_category = CategoryForm(request.POST)
+        if aad_category.is_valid():
+            aad_category.save()
+
+
+
+
     context = {
         'categorys': Category.objects.all(),
         'books': Books.objects.all(),
         'form': BookForm(),
-
+        'form_category': CategoryForm(),
     }
 
     return render(request, 'pages/index.html', context)
