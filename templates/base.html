@@ -205,6 +205,14 @@ $(function () {
   });
 
 
+  {% for book in books %}
+  $(".cat{{book.category.id}}").click(function(){
+    $(".bookhide").hide();
+    $(".cat{{book.category.id}").show();
+  });
+
+  {% endfor %}
+
 </script>
 
 </body>
